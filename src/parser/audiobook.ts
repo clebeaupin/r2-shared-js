@@ -37,7 +37,6 @@ function absolutizeURLs(rootUrl: string, jsonObj: any) {
 }
 
 export async function AudioBookParsePromise(filePath: string, isAudio?: AudioBookis): Promise<Publication> {
-
     const isAnAudioBook = isAudio || await isAudioBookPublication(filePath);
 
     // // excludes AudioBookis.RemoteExploded
@@ -199,7 +198,7 @@ export enum AudioBookis {
     LocalExploded = "LocalExploded",
     LocalPacked = "LocalPacked",
     RemoteExploded = "RemoteExploded",
-    // RemotePacked = "RemotePacked",
+    RemotePacked = "RemotePacked",
 }
 
 async function doRequest(u: string): Promise<AudioBookis> {
@@ -305,6 +304,8 @@ export async function isAudioBookPublication(urlOrPath: string): Promise<AudioBo
         // return isHttp ? AudioBookis.RemotePacked : AudioBookis.LocalPacked;
         if (!isHttp) {
             return AudioBookis.LocalPacked;
+        } else {
+            return AudioBookis.RemotePacked;
         }
     }
 
